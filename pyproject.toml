@@ -1,0 +1,25 @@
+[project]
+name = "ndbduplicates"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Simon", email = "simon.j.goring@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg[binary]>=3.2.10",
+    "rich>=14.2.0",
+]
+
+[project.scripts]
+ndbduplicates = "ndbduplicates:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
