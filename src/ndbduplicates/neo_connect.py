@@ -1,6 +1,7 @@
 import psycopg2
 from dotenv import dotenv_values
 from json import loads
+from psycopg2.extras import RealDictCursor
 
 
 def neo_connect(tank: bool = False) -> psycopg2.connect:
@@ -17,5 +18,5 @@ def neo_connect(tank: bool = False) -> psycopg2.connect:
         CONN_STRING = loads(secrets["DBAUTH_TEST"])
     else:
         CONN_STRING = loads(secrets["DBAUTH"])
-    con = psycopg2.connect(**CONN_STRING, connect_timeout=5)
+    con = psycopg2.connect(**CONN_STRING, connect_timeout=5, cursor_factory=RealDictCursor)
     return con

@@ -8,5 +8,5 @@ def print_fk_tables(tables):
     table.add_column("Related Table", style="dim")
     table.add_column("Related Column", style="dim")
     for i in tables:
-        table.add_row(i[0], i[1], i[2])
+        table.add_row(i['constraint_schema'], i['table_name'], i['column_name'])
     console.print(table)

@@ -30,9 +30,10 @@ def parse_args():
 def main(args):
     if not args.table:
         print('You must supply a valid Neotoma table name in the `ndb` schema.')
-    print(f'Checking table "{args.table}".')
+    print(f'** Checking the use of "{args.table}''s" Primary Key **')
     if args.table:
         con = ndup.neo_connect()
+        _ = ndup.print_dup_rows(con, args)
         with con.cursor() as cur:
             with open('./src/sql/fk_tables.sql', 'r') as query:
                 _ = cur.execute(query.read(), 
@@ -44,16 +45,23 @@ def main(args):
             rowval = ndup.parse_rows(args)
             result = []
             for i in tables:
-                result.append([i, ndup.get_row_counts(con, 
-                                                      schema = 'ndb',
-                                                      table = i[1],
-                                                      column = i[2],
-                                                      rows = rowval)])
+                rowCount = ndup.get_row_counts(con, 
+                                                schema = 'ndb',
+                                                table = i['table_name'],
+                                                column = i['column_name'],
+                                                rows = rowval)
+                result.append([dict(j) for j in rowCount])
+            print('\n')
+            print(f'** Checking the use of the duplicate row pair {args.rows} **')
             ndup.print_row_results(result, rowval)
 
 if __name__ == '__main__':
     args = parse_args()
-    print(args)
+    print('\n')
+    print('Running with user defined variables:')
+    for j, k in vars(args).items():
+        print(f'\t{j}: {k}')
+    print('\n')
 else:
     # For testing in the Python environment:
     class args:
