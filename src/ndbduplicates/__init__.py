@@ -4,3 +4,4 @@ from .print_fk_tables import print_fk_tables
 from .get_row_counts import get_row_counts
 from .print_row_results import print_row_results
 from .print_dup_rows import print_dup_rows
+from .show_rows import show_rows

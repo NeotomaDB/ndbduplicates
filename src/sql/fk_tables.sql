@@ -1,9 +1,9 @@
-select distinct 
+select distinct
        fk_tco.constraint_schema,
        fk_tco.table_name,
        kcu.column_name
 from information_schema.referential_constraints rco
-left join information_schema.table_constraints fk_tco 
+left join information_schema.table_constraints fk_tco
           on rco.constraint_name = fk_tco.constraint_name
           and rco.constraint_schema = fk_tco.table_schema
 join information_schema.table_constraints pk_tco
